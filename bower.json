@@ -1,0 +1,32 @@
+{
+  "name": "incredible.js",
+  "version": "1.1.1",
+  "homepage": "https://github.com/VincentLoy/incredible.js",
+  "authors": [
+    "VincentLoy <vincent.loy1@gmail.com>"
+  ],
+  "description": "Javascript Library making circular backgrounds using some magical Math",
+  "main": [
+    "dist/incredible.min.js",
+    "dev/incredible.js"
+  ],
+  "keywords": [
+    "incredible",
+    "math",
+    "background",
+    "svg"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "*.md"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.3"
+  },
+  "devDependencies": {
+    "lesshat": "~3.0.0",
+    "prism": "*"
+  }
+}
