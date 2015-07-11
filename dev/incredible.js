@@ -35,7 +35,7 @@
         return out;
     };
 
-    incredible = function (elt, params) {
+    incredible = function (params) {
         var args = extend({
                 backgroundColor: '#2980b9',
                 strokeColor: '#fff',
@@ -45,7 +45,6 @@
                 multiple: 10,
                 pas: 1
             }, params),
-            el = document.getElementById(elt),
 
             s = new Snap(1200, 1200),
             circleX = 550,
