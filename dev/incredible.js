@@ -37,48 +37,76 @@
 
     incredible = function (elt, params) {
         var args = extend({
-                backgroundColor: '#fe1fe1',
-                strokeColor: '#cd1cd1',
-                modulo: 20,
-                debug: true,
+                backgroundColor: '#2980b9',
+                strokeColor: '#fff',
+                modulo: 1000,
+                debug: false,
+                background: true,
+                multiple: 10,
+                pas: 1
             }, params),
-            el = document.getElementById(elt);
-            //snap = new Snap(),
-            //bigCircle = snap.circle(500, 500, 500);
+            el = document.getElementById(elt),
 
-        var s = Snap(800, 800);
-        var circleX = 400, circleY = 400, circleRadius = 360;
+            s = new Snap(1200, 1200),
+            circleX = 550,
+            circleY = 550,
+            circleRadius = 500,
+            newX,
+            newY,
+        //originX = circleX + (circleRadius * Math.sin(0)),
+        //originY = circleY - (circleRadius * Math.cos(0)),
+            slice = 2 * Math.PI / args.modulo,
+            angle,
+            points = [],
+            pointStart,
+            pointEnd,
+            Mx,
+            My,
+            Lx,
+            Ly,
+            i,
+            y,
+            debugCircle;
 
-        if (args.debug) {
-            var bigCircle = s.circle(circleX, circleY, circleRadius);
+        if (args.debug || args.background) {
+            debugCircle = s.circle(circleX, circleY, circleRadius);
             //var L1 = s.path("M " + circleX + " " + circleY + "L 0 0").attr({stroke: "blue"});
- //By default its black, lets change its attributes
-            bigCircle.attr({
-             fill: "#bada55",
-             stroke: "#000",
-             strokeWidth: 5
-             });
+            //By default its black, lets change its attributes
+            debugCircle.attr({
+                fill: args.backgroundColor,
+                strokeWidth: 5
+            });
         }
-
-        var mod = args.modulo;
-
-        var newX = circleX + ((circleRadius) * Math.sin(0));
-        var newY = circleY - ((circleRadius) * Math.cos(0));
 
         //var c1 = s.circle(newX, newY, 10).attr({fill: "red"});
 
-        for (var i = 0; i < args.modulo; i += 1) {
-            var test = s.circle(newX, newY, 10).attr({
-                fill: 'red',
-            });
+        for (i = 0; i < args.modulo; i += args.pas) {
+            angle = slice * i;
 
-            var rotateVal = (360 / args.modulo) * i;
+            newX = (circleX + circleRadius * Math.cos(angle));
+            newY = (circleY + circleRadius * Math.sin(angle));
+            points.push({x: newX, y: newY});
 
-            test.attr({
-                "transform": "rotate("+ rotateVal +", 400, 400)",
-                "data-num": i
-            });
+            if (args.debug) {
+                s.circle(newX, newY, 10).attr({
+                    fill: 'red'
+                });
+            }
         }
+
+
+        for (y = 0; y < points.length; y += 1) {
+            pointStart = points[y];
+            pointEnd = points[(y * args.multiple) % args.modulo];
+            Mx = pointStart.x;
+            My = pointStart.y;
+            Lx = pointEnd.x;
+            Ly = pointEnd.y;
+
+            s.path("M " + Mx + " " + My + "L " + Lx + " " + Ly).attr({stroke: args.strokeColor});
+        }
+
+
     };
 
     exports.incredible = incredible;
